@@ -7,6 +7,8 @@
  */
 
 'use strict';
+var exec = require('child_process').exec;
+var Path = require('path');
 
 module.exports = function(grunt) {
 
@@ -14,36 +16,39 @@ module.exports = function(grunt) {
   // creation: http://gruntjs.com/creating-tasks
 
   grunt.registerMultiTask('mstest', 'The best mstest Grunt plugin ever.', function() {
+
+    var done = this.async();
+
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
-      punctuation: '.',
-      separator: ', '
+      mstestPath: "\"\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\IDE\\MSTest.exe\"",
     });
 
     // Iterate over all specified file groups.
-    this.files.forEach(function(f) {
+    var fileAmount = this.filesSrc.length;
+    var i = 0;
+    this.filesSrc.forEach(function(filepath) {
       // Concat specified files.
-      var src = f.src.filter(function(filepath) {
-        // Warn on and remove invalid source files (if nonull was set).
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
-          return false;
-        } else {
-          return true;
-        }
-      }).map(function(filepath) {
-        // Read file source.
-        return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
+        var thePath = filepath;
+        grunt.log.writeln(options.mstestPath + " /testcontainer:"+thePath);
 
-      // Handle options.
-      src += options.punctuation;
+        var child = exec(options.mstestPath + "/testcontainer:"+thePath ,function (error, stdout, stderr) {
+            grunt.log.writeln(stdout);
 
-      // Write the destination file.
-      grunt.file.write(f.dest, src);
+            if(!stderr && stderr !== ""){
+              grunt.fail.warn("stderr:\""+stderr+"\"",3);
+            }
+            if (error !== null) {
+              grunt.fail.warn(error,3);
+            }
 
-      // Print a success message.
-      grunt.log.writeln('File "' + f.dest + '" created.');
+
+            i++;
+            if(i === fileAmount){
+              done();
+            }
+        });
+
     });
   });
 
