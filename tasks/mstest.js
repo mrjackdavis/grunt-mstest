@@ -25,30 +25,21 @@ module.exports = function(grunt) {
     });
 
     // Iterate over all specified file groups.
-    var fileAmount = this.filesSrc.length;
-    var i = 0;
-    this.filesSrc.forEach(function(filepath) {
-      // Concat specified files.
-        var thePath = filepath;
-        grunt.log.writeln(options.mstestPath + " /testcontainer:"+thePath);
+    var containerString = this.filesSrc.map(function(filePath){
+      return "/testcontainer:"+filePath;
+    }).join(" ");
 
-        var child = exec(options.mstestPath + "/testcontainer:"+thePath ,function (error, stdout, stderr) {
-            grunt.log.writeln(stdout);
+    var child = exec(options.mstestPath + " " +containerString ,function (error, stdout, stderr) {
+        grunt.log.writeln(stdout);
 
-            if(!stderr && stderr !== ""){
-              grunt.fail.warn("stderr:\""+stderr+"\"",3);
-            }
-            if (error !== null) {
-              grunt.fail.warn(error,3);
-            }
+        if(!stderr && stderr !== ""){
+          grunt.fail.warn("stderr:\""+stderr+"\"",3);
+        }
+        if (error !== null) {
+          grunt.fail.warn(error,3);
+        }
 
-
-            i++;
-            if(i === fileAmount){
-              done();
-            }
-        });
-
+        done();
     });
   });
 
