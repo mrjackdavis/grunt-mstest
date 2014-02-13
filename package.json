@@ -38,8 +38,5 @@
   },
   "keywords": [
     "gruntplugin"
-  ],
-  "dependencies": {
-    "grunt-shell": "~0.6.4"
-  }
+  ]
 }
