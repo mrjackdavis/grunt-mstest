@@ -53,9 +53,11 @@ module.exports = function(grunt) {
 
 
     function getExePath() {
-        var vsTools = process.env.VS110COMNTOOLS;
-
-        if(vsTools === null || vsTools === "")
+        var vsTools = process.env.VS120COMNTOOLS;
+        vsTools = vsTools || process.env.VS110COMNTOOLS;
+        vsTools = vsTools || process.env.VS100COMNTOOLS;
+        
+        if(!vsTools || vsTools === "")
             grunt.fatal("Visual studio tools not installed")
 
         var exePath = path.join(vsTools, "../IDE", 'MSTest.exe');
