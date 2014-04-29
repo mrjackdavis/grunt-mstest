@@ -23,8 +23,16 @@ module.exports = function(grunt) {
         // Merge task-specific and/or target-specific options with these defaults.
         var options = this.options({
             mstestPath: getExePath(),
-            details:["errormessage","errorstacktrace"]
+            details:["errormessage","errorstacktrace"],
+            force:false
         });
+
+        function gruntWarn(str){
+            if(options.force)
+                grunt.log.writeln(str);
+            else
+                grunt.fail.warn(str);
+        }
 
         // Iterate over all specified file groups.
         var containerString = this.filesSrc.map(function(filePath){
@@ -41,10 +49,10 @@ module.exports = function(grunt) {
             grunt.log.writeln(stdout);
 
             if(!stderr && stderr !== ""){
-                grunt.fail.warn("stderr:\""+stderr+"\"",3);
+                gruntWarn("stderr:\""+stderr+"\"",3);
             }
             if (error !== null) {
-                grunt.fail.warn(error,3);
+                gruntWarn(error,3);
             }
 
             done();

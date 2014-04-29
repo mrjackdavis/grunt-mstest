@@ -19,10 +19,7 @@ grunt.loadNpmTasks('grunt-mstest');
 
 ## The "mstest" task
 
-### Sorry,
-I haven't gotten around to writing the documentation for this yet. 
-
-Nevertheless here's an example:
+###Example
 
 ```javascript
 mstest: {
@@ -32,11 +29,15 @@ mstest: {
 }
 ```
 
+### Forcing tests
+You can add force:true to the options to prevent test failures resulting in a build failure, useful for CI workflow.
+
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+- 0.1.4 Add force feature
 - 0.1.3 Change priority of vstools to newest first
 - 0.1.2 Fix issue where vstools 10 or 12 was not detected
 - 0.1.0 Initial release
