@@ -53,8 +53,8 @@ module.exports = function(grunt) {
 
 
     function getExePath() {
-        //Possible env variables for visual studio tools, in order of priority
-        var vsToolsArr = [process.env.VS120COMNTOOLS,process.env.VS110COMNTOOLS,process.env.VS100COMNTOOLS]
+        //Possible env variables for visual studio tools, in reverse order of priority
+        var vsToolsArr = [process.env.VS100COMNTOOLS,process.env.VS110COMNTOOLS,process.env.VS120COMNTOOLS]
 
         //Get highest priority VS tools
         var vsTools = null;

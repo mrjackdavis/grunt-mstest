@@ -84,6 +84,9 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
+
+  process.env.VS100COMNTOOLS = "Durp";
+  
   grunt.registerTask('test', ['clean','msbuild', 'mstest', 'nodeunit']);
 
   // By default, lint and run all tests.
