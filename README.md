@@ -86,4 +86,5 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+- 0.1.2 Fix issue where vstools 10 or 12 was not detected
+- 0.1.0 Initial release
