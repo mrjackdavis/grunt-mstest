@@ -7,7 +7,7 @@
 */
 
 'use strict';
-var exec = require('child_process').exec;
+var spawn = require('child_process').spawn;
 var path = require('path');
 var fs = require('fs');
 
@@ -34,29 +34,39 @@ module.exports = function(grunt) {
                 grunt.fail.warn(str);
         }
 
+        var args = [];
+
         // Iterate over all specified file groups.
-        var containerString = this.filesSrc.map(function(filePath){
-            return "/testcontainer:"+filePath;
-        }).join(" ");
+        this.filesSrc.map(function(filePath){
+            args.push("/testcontainer:"+filePath);
+        });
 
         for (var i = options.details.length - 1; i >= 0; i--) {
-            containerString += " /detail:"+options.details[i]
+            args.push("/detail:"+options.details[i]);
         };
 
-        containerString +=" /usestderr";
+        args.push("/usestderr");
 
-        var child = exec(escapeShell(options.mstestPath) +containerString ,function (error, stdout, stderr) {
-            grunt.log.writeln(stdout);
+        var process = spawn(options.mstestPath,args);
 
-            if(!stderr && stderr !== ""){
-                gruntWarn("stderr:\""+stderr+"\"",3);
-            }
-            if (error !== null) {
-                gruntWarn(error,3);
-            }
+        process.stdout.on('data', function(data) { grunt.log.write(data) });
 
+        process.stdout.on('exit', function(data) {
             done();
         });
+
+        // var child = childProcess.exec(escapeShell(options.mstestPath) +containerString ,function (error, stdout, stderr) {
+        //     grunt.log.writeln(stdout);
+
+        //     if(!stderr && stderr !== ""){
+        //         gruntWarn("stderr:\""+stderr+"\"",3);
+        //     }
+        //     if (error !== null) {
+        //         gruntWarn(error,3);
+        //     }
+
+            
+        // });
     });
 
 
