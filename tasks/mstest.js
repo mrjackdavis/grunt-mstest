@@ -29,7 +29,7 @@ module.exports = function(grunt) {
 
         function gruntWarn(str){
             if(options.force)
-                grunt.log.writeln(str);
+                grunt.log.write(str);
             else
                 grunt.fail.warn(str);
         }
@@ -52,9 +52,9 @@ module.exports = function(grunt) {
         process.stdout.on('data', function(data) { grunt.log.write(data) });
         process.stderr.on('data', function(data) { grunt.log.error(data); });
 
-        process.stdout.on('exit', function(code) {
+        process.on('exit', function(code) {
             if (code !== 0) {
-                grunt.error.log('MsTest exited with code ' + code);
+                gruntWarn('Some tests have failed');
             }
             done();
         });
