@@ -50,23 +50,14 @@ module.exports = function(grunt) {
         var process = spawn(options.mstestPath,args);
 
         process.stdout.on('data', function(data) { grunt.log.write(data) });
+        process.stderr.on('data', function(data) { grunt.log.error(data); });
 
-        process.stdout.on('exit', function(data) {
+        process.stdout.on('exit', function(code) {
+            if (code !== 0) {
+                grunt.error.log('MsTest exited with code ' + code);
+            }
             done();
         });
-
-        // var child = childProcess.exec(escapeShell(options.mstestPath) +containerString ,function (error, stdout, stderr) {
-        //     grunt.log.writeln(stdout);
-
-        //     if(!stderr && stderr !== ""){
-        //         gruntWarn("stderr:\""+stderr+"\"",3);
-        //     }
-        //     if (error !== null) {
-        //         gruntWarn(error,3);
-        //     }
-
-            
-        // });
     });
 
 
