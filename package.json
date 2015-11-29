@@ -1,15 +1,12 @@
 {
   "name": "grunt-mstest",
   "description": "The best mstest Grunt plugin ever.",
-  "version": "0.1.5",
+  "version": "0.1.4",
   "homepage": "https://github.com/mrjackdavis/grunt-mstest",
   "author": {
     "name": "mrjackdavis",
     "email": "mr.jackdavis@gmail.com"
   },
-  "contributors": [
-      "M.Scheepers <mscheepers@tool-links.de>"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/mrjackdavis/grunt-mstest.git"
