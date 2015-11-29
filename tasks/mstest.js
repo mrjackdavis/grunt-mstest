@@ -46,7 +46,7 @@ module.exports = function(grunt) {
     // will search for an appropriate mstest.exe if no executable was specified
     function findExecutable() {
         // environment variables for visual studio tools paths
-        var paths = [process.env.VS100COMNTOOLS, process.env.VS110COMNTOOLS, process.env.VS120COMNTOOLS],
+        var paths = [process.env.VS100COMNTOOLS, process.env.VS110COMNTOOLS, process.env.VS120COMNTOOLS, process.env.VS140COMNTOOLS],
             executable = null,
             notools = true,
             p = null,
