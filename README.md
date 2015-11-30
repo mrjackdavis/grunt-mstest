@@ -105,7 +105,8 @@ You can add force:true to the options to prevent test failures resulting in a bu
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-- 0.1.5 Add support for additional mstest command line arguments
+- 0.1.6 Add support for additional mstest command line arguments
+- 0.1.5 Stream mstest results, providing faster feedback
 - 0.1.4 Add force feature
 - 0.1.3 Change priority of vstools to newest first
 - 0.1.2 Fix issue where vstools 10 or 12 was not detected
